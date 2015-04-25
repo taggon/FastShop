@@ -77,6 +77,7 @@ app.use(function(req, res, next){
 // load controllers
 (function(dir){
 	fs.readdirSync(dir).forEach(function(name){
+		if (!/\.js$/.test(name)) return;
 		require(path.join(dir, name))(app);
 	});
 })(path.join(__dirname, 'server', 'controllers'));
@@ -84,6 +85,7 @@ app.use(function(req, res, next){
 // load models
 (function(dir){
 	fs.readdirSync(dir).forEach(function(name){
+		if (!/\.js$/.test(name)) return;
 		var mod = require(path.join(dir, name));
 		global[mod.name] = mod.model;
 	});

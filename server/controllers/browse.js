@@ -16,7 +16,7 @@ module.exports = function(app) {
 			.fin(function(){
 				next();
 			});
-		
+
 		// in_sale variable
 		res.locals.in_sale = (req.body.sale === 'true');
 	});
@@ -27,7 +27,7 @@ module.exports = function(app) {
 
 	app.get('/browse/:category', function(req, res){
 		var where = {filter:[]};
-		
+
 		_.each(res.locals.categories, function(obj){
 			if (req.params.category === obj.slug) {
 				res.locals.root_category = obj;
@@ -55,7 +55,7 @@ module.exports = function(app) {
 		if (req.query.sale === 'true') {
 			where.filter.push('(retail_price > 0)');
 		}
-		
+
 		Product.find(where).then(
 			function(products){
 				res.locals.products = _.map(products, function(product){ return product.toJSON() });
@@ -72,7 +72,7 @@ module.exports = function(app) {
 		Product.get(req.params.product_id)
 			.then(function(prod){
 				res.locals.product = prod.toJSON();
-
+console.log(res.locals.product);
 				return Product.find({$category_id:prod.category.id, filter:'id != '+prod.id, limit:6});
 			})
 			.then(function(products){
