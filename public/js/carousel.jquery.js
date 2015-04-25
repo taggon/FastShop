@@ -13,6 +13,8 @@
 		self
 			.data('currentIndex', 0)
 			.on('move', function(event, step){
+				clearTimeout(self.data('timer'));
+
 				// 애니메이션 도중이면 사용자 입력을 무시한다.
 				if (self.find('li:first').is(':animated')) {
 					return;
@@ -34,7 +36,11 @@
 					.find('li:first').animate(
 						{'margin-left': -currentIndex*self.width()},
 						opt.period,
-						function(){ self.trigger('mouseleave'); }
+						function(){
+							if (!self.data('entered')) {
+								self.trigger('mouseleave');
+							}
+						}
 					);
 			})
 			.on('click', '.prev', function(event){
@@ -47,6 +53,7 @@
 			})
 			.on('mouseenter', function(event){
 				clearTimeout(self.data('timer'));
+				self.data('entered', true);
 			})
 			.on('mouseleave', function(event){
 				var timer = setTimeout(function(){
@@ -54,6 +61,7 @@
 				}, 1000);
 
 				self.data('timer', timer);
+				self.data('entered', false);
 			})
 			.trigger('mouseleave');
 	};
