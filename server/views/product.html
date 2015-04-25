@@ -30,7 +30,7 @@
 		<form class="options">
 			<label>Select Color and Size</label>
 			<div class="clearbox">
-				<span class="color"><select>{{#product.options}}<option>{{name}}</option>{{/product.options}}</select></span>
+				<span class="color"><select>{{#product.options}}<option value="{{id}}">{{name}}</option>{{/product.options}}</select></span>
 				<span class="size"><select>{{#product.options}}{{#children}}<option value="{{id}}" data-parent="{{parent.name}}">{{name}}</option>{{/children}}{{/product.options}}</select>
 			</div>
 			<button type="submit" id="add_to_cart"><i class="fa fa-cart"></i> Add to Cart</button>
