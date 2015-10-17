@@ -855,6 +855,12 @@ a {
 	border:1px solid #ccc;
 	box-sizing: border-box;
 
+	&.hover, &:hover {
+		>a {
+			opacity: .8;
+		}
+	}
+
 	ul {
 		list-style: none;
 		margin: 0;
@@ -890,9 +896,7 @@ a {
 	-ms-transition: opacity .3s;
 	-o-transition: opacity .3s;
 }
-.carousel:hover > a {
-	opacity: .8;
-}
+
 .carousel > a.prev {
 	left: 20px;
 }
