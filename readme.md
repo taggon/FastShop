@@ -21,6 +21,8 @@ This is just a sample online shop for my class. Don't use this in production.
   파라미터
   - email : 사용자 이메일
   - password : 패스워드
+   
+  기본 사용자는 `user@mail.com`를 사용자 이름으로, `1234`를 패스워드로 사용하여 로그인 할 수 있다.
 
 ## 카트
 - **GET** /api/cart 카트에 담겨진 상품에 대한 정보를 반환한다.
