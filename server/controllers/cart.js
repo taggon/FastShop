@@ -60,7 +60,7 @@ module.exports = function(app) {
 			res.status(403).json({error:'회원 권한이 필요합니다.'});
 			return false;
 		}*/
-		
+
 		if (!+req.body.option_id) {
 			return res.status(400).json({error:'option_id를 설정하세요.'});
 		}
@@ -80,7 +80,7 @@ module.exports = function(app) {
 					console.error(err.stack);
 					return res.status(500).json({error:'데이터베이스 에러: ' + err});
 				}
-				
+
 				// set quantity value
 				where.$quantity = +req.body.quantity || 1;
 
@@ -100,26 +100,26 @@ module.exports = function(app) {
 			}
 		);
 	});
-	
+
 	app.put('/api/cart/:option_id', function(req, res){
 		if (!req.session.user) {
 			res.status(403).json({error:'회원 권한이 필요합니다.'});
 			return false;
 		}
-		
+
 		var where = {
 			$user_id : req.session.user.id,
 			$option_id : req.params.option_id
 		};
-		
+
 		db.get(
 			'SELECT * FROM carts WHERE user_id=$user_id AND option_id=$option_id',
 			where,
 			function(err, row){
 				if (err) return res.status(500).json({error:'데이터베이스 에러: '+err});
-				
+
 				where.$quantity = req.body.quantity;
-				
+
 				db.run(
 					'UPDATE carts SET quantity=$quantity WHERE user_id=$user_id AND option_id=$option_id',
 					where,
@@ -137,10 +137,10 @@ module.exports = function(app) {
 			res.status(403).json({error:'회원 권한이 필요합니다.'});
 			return false;
 		}
-		
+
 		db.run(
 			'DELETE FROM carts WHERE user_id=$user_id AND option_id=$option_id',
-			{$user_id:req.session.user.id, $option_id:req.body.option_id},
+			{$user_id:req.session.user.id, $option_id:req.params.option_id},
 			function(err) {
 				if (err) return res.status(500).json({error:'데이터베이스 에러'});
 				res.json({status:1, statusText:'OK'});
